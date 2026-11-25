@@ -70,6 +70,14 @@ AI tự đề xuất kiểu hợp style, hoặc chọn từ mẫu mặc định:
 
 Hỏi loop **cùng lượt với show và hide của màn** (Làm như đề xuất / Chỉnh sửa / Không làm), nêu rõ nút nào, mẫu nào, vì sao.
 
+**Nguồn cho hiệu ứng sáng.** Trước khi đề xuất lóe, glow hay tia, tìm trong project texture và prefab FX có sẵn: glow, beam, shine, spark, ray, flare, halo, star, blink; shader UI; prefab particle. Thứ tự chọn:
+
+1. **Texture có sẵn** trong project, hợp style (pixel dùng ảnh pixel): đặt Image phía sau hoặc trên nút, animate alpha, scale, xoay, hoặc quét ngang trong mask. Giữ đúng tỉ lệ, tắt raycast.
+2. **Particle** khi cần hạt bay, lấp lánh, nổ thưởng: dùng UI particle project đã có và prefab FX sẵn có. Giới hạn số hạt và vùng phủ, dừng khi màn ẩn. Project chưa có UI particle thì hỏi trước khi cài.
+3. **Không có sẵn:** đề xuất shader hoặc tween màu, hoặc xin ảnh FX từ người làm. Không tự vẽ ảnh mới khi chưa được đồng ý.
+
+Trong đề xuất, ghi rõ tên file texture hoặc prefab sẽ dùng để người dùng duyệt. Ưu tiên additive hoặc alpha theo shader sẵn có, không tạo material mới cho từng nút.
+
 **Chỉ một component dùng chung cho animation nút.**
 
 - Tìm component sẵn có của project trước (component nút nhún, nhấn, pulse) và mở rộng nó. Chưa có thì tạo đúng một component, không tạo class riêng cho từng nút hay từng mẫu.
