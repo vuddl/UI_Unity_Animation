@@ -11,6 +11,8 @@ Khi được gọi để mở luồng Animation, xác định project hiện t�
 
 Đọc một luồng UI thật từ nút mở, bind dữ liệu, show, hide đến lúc đóng hoặc trả về pool. Báo ngắn tên file, class và hàm có thể gắn show/hide/loop. Kiểm tra cách project xử lý input, time scale, backdrop và tween đang chạy.
 
+Kiểm tra thư viện animation trước khi đề xuất: tween (DOTween, PrimeTween…), hiệu ứng UI (UIEffect, UIFX), hạt UI (UIParticle), Spine, Timeline. Dùng thư viện project đã có và đừng thêm thư viện thứ hai cùng chức năng. Thiếu thì hỏi người dùng có muốn cài không, nêu tên, nguồn và lý do. Khi chưa có tween, đề xuất [DOTween](https://dotween.demigiant.com/) bản miễn phí; hiệu ứng UI và hạt chỉ đề xuất khi màn cần. Bản trả phí hoặc cần đăng nhập Asset Store thì để người dùng tự nhập. Cài xong, biên dịch sạch rồi mới dùng. Người dùng không cài thì làm bằng coroutine hoặc Animator sẵn có.
+
 Ở lần setup đầu, đọc cả gameplay và UI. Báo cho người dùng **style nhận diện, dấu hiệu, nhịp chuyển động và hiệu ứng nền đề xuất**. Hỏi họ chỉnh hoặc chốt trước khi áp dụng. Giữ quyết định trong phiên Animation cho các màn tiếp theo.
 
 - Hiện thực: ưu tiên fade, quãng trượt ngắn và giảm tốc tự nhiên.
