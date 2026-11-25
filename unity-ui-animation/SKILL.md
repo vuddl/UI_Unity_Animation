@@ -34,16 +34,38 @@ Trước khi ghép, nêu theo từng vùng thật của màn: tên cụm, sự k
 - Khi đổi tab, nội dung cũ/mới trượt theo chiều thao tác. Khi đổi lựa chọn, tập trung phản hồi ở ô được chọn và phần chi tiết thay đổi.
 - Dùng nhún, lóe hoặc beam đúng thời điểm chạm nếu hợp game. Loop chỉ thêm theo mục "Loop và nút nổi bật". Phối hợp nhịp kết với màn kế tiếp để tránh hụt hình.
 
+## Mẫu đề xuất cho một màn
+
+Dùng cả khi người dùng chỉ hỏi "màn này bạn đề xuất gì". Đề xuất xong thì dừng, **chưa được trả lời thì không sửa code, prefab hay asset**.
+
+**Chuẩn bị (chỉ đọc):** script và animation đang có của màn, prefab, texture FX và particle trong project, component nút dùng chung. Không chắc về hình hay tỉ lệ file nào thì nói rõ là chưa mở xem.
+
+**Trình bày** ngắn gọn theo thứ tự sau, bỏ mục không hợp:
+
+1. **Đánh giá:** màn xuất hiện lúc nào, ở lâu hay thoáng qua, có cần gây ấn tượng không, người chơi đang làm gì (đọc, chọn, chờ).
+2. **Đang có gì:** animation hiện tại và nhận xét. Phần tốt thì đề xuất **giữ**, chỉ bổ sung chỗ thiếu; không đề nghị làm lại từ đầu khi không cần.
+3. **Show**, **Hide** (hoặc hiệu ứng khi chọn/xác nhận): vùng, hướng, thời lượng, nhịp, điểm nhấn.
+4. **Loop** lúc chờ: nút hoặc hình nào, mẫu nào, biên độ, chu kỳ, lệch pha giữa các phần tử, khi nào dừng. Nêu cả phần **cố ý không loop** và lý do (đang đọc chữ, tốn vẽ lại, nút khoá).
+5. **Nhấn nút:** chỉ khi thiếu phản hồi; dùng component chung.
+6. **FX / particle:** chỉ khi hợp, kèm tên file, vị trí, lúc xuất hiện, chạy một lần hay lặp. Hỏi duyệt riêng.
+7. **Khuyến nghị:** một câu chọn phương án nên làm, và rủi ro đáng chú ý (xung đột với tween khác, dừng khi chọn, vẽ lại mỗi frame).
+
+**Lấy câu trả lời:** show, hide, loop và FX hỏi riêng (Làm như đề xuất / Chỉnh sửa / Không làm). Không có hộp lựa chọn, hoặc người dùng muốn nhanh, thì nhận một tin như: `1 đề xuất; 2 đề xuất; 3 sửa "chỉ thẻ giữa"; 4 không; 5 glow có, hạt không`. Câu nào thiếu thì chỉ hỏi câu đó.
+
+**Trước khi làm:** gửi bảng tổng của mọi màn (màn, show, hide, loop, FX, component và file dùng) để người dùng duyệt lần cuối, rồi làm một lượt.
+
+Ví dụ loop tốt: ba thẻ chọn có tia sáng alpha 0.52 → 0.72, mỗi thẻ lệch pha 0,3 giây, dừng khi bấm chọn. Ví dụ không nên: nhún scale cả thẻ khi người chơi đang đọc.
+
 ## Hỏi và chốt từng màn
 
 Khi nhận nhiều màn, bắt đầu sau khi logic của tất cả các màn đã nối xong. Một màn lẻ dùng cùng quy trình với một lượt hỏi.
 
 1. Chụp lại từng màn trong Game View, soạn đề xuất show và hide riêng cho mỗi màn, rồi báo người dùng là bắt đầu phần animation.
-2. Đi lần lượt từng màn: cho xem ảnh chụp và đề xuất ngắn (vùng chuyển động, hướng, thời lượng, điểm nhấn). Hỏi **show**, **hide** tách riêng, và **loop** nếu màn có đề xuất loop; mỗi câu có ba lựa chọn:
+2. Đi lần lượt từng màn: cho xem ảnh chụp và đề xuất theo "Mẫu đề xuất cho một màn". Hỏi **show**, **hide** tách riêng, và **loop** nếu màn có đề xuất loop; mỗi câu có ba lựa chọn:
    - **Làm như đề xuất**: ghi nhận đề xuất.
    - **Chỉnh sửa**: đóng hộp hỏi và chờ người dùng mô tả trong khung chat. Nhắc lại ý đã hiểu trong một câu rồi đi tiếp.
    - **Không làm**: giữ nguyên phần đó.
-3. Có đủ câu trả lời của màn hiện tại mới sang màn kế tiếp. Hỏi hết các màn rồi mới ghép, để Unity chỉ bận một đợt.
+3. Có đủ câu trả lời của màn hiện tại mới sang màn kế tiếp. Hỏi hết các màn, gửi bảng tổng để duyệt lần cuối, rồi mới ghép để Unity chỉ bận một đợt.
 
 Nếu môi trường không có hộp lựa chọn, hỏi bằng tin nhắn với đúng ba lựa chọn đó. Nếu có phiên điều phối (ví dụ UI_Skill của unity-ui), xin lượt dùng Unity ở đó trước khi vào Play, biên dịch hoặc sửa prefab; xong thì trả lượt. Báo về phiên đó khi bắt đầu, khi hỏi xong và khi hoàn tất, kể cả khi người dùng chat trực tiếp tại đây.
 
