@@ -32,20 +32,52 @@ Trước khi ghép, nêu theo từng vùng thật của màn: tên cụm, sự k
 - Grid dày có thể hiện so le theo hàng; danh sách dọc theo thứ tự đọc; dải ngang theo chiều đọc. Một biến thể cho thẻ nổi bật là scale 0.5, lóe sáng, bật lên 1.1 rồi hạ về 1 đồng thời lớp sáng tan và hình thật hiện rõ.
 - Icon và thông tin đi theo cặp. Số lượng hoặc mô tả chỉ bắt đầu hiện cùng lúc hoặc sau khi icon bắt đầu hiện. Khi đếm số và tween thanh tiến độ, đồng bộ nhịp và giá trị cuối. Chọn hiển thị trực tiếp nếu dễ đọc hơn.
 - Khi đổi tab, nội dung cũ/mới trượt theo chiều thao tác. Khi đổi lựa chọn, tập trung phản hồi ở ô được chọn và phần chi tiết thay đổi.
-- Dùng nhún, lóe hoặc beam đúng thời điểm chạm nếu hợp game. Loop chỉ thêm khi có chủ đích. Phối hợp nhịp kết với màn kế tiếp để tránh hụt hình.
+- Dùng nhún, lóe hoặc beam đúng thời điểm chạm nếu hợp game. Loop chỉ thêm theo mục "Loop và nút nổi bật". Phối hợp nhịp kết với màn kế tiếp để tránh hụt hình.
 
 ## Hỏi và chốt từng màn
 
 Khi nhận nhiều màn, bắt đầu sau khi logic của tất cả các màn đã nối xong. Một màn lẻ dùng cùng quy trình với một lượt hỏi.
 
 1. Chụp lại từng màn trong Game View, soạn đề xuất show và hide riêng cho mỗi màn, rồi báo người dùng là bắt đầu phần animation.
-2. Đi lần lượt từng màn: cho xem ảnh chụp và đề xuất ngắn (vùng chuyển động, hướng, thời lượng, điểm nhấn). Hỏi **show** và **hide** tách riêng; mỗi câu có ba lựa chọn:
+2. Đi lần lượt từng màn: cho xem ảnh chụp và đề xuất ngắn (vùng chuyển động, hướng, thời lượng, điểm nhấn). Hỏi **show**, **hide** tách riêng, và **loop** nếu màn có đề xuất loop; mỗi câu có ba lựa chọn:
    - **Làm như đề xuất**: ghi nhận đề xuất.
    - **Chỉnh sửa**: đóng hộp hỏi và chờ người dùng mô tả trong khung chat. Nhắc lại ý đã hiểu trong một câu rồi đi tiếp.
    - **Không làm**: giữ nguyên phần đó.
 3. Có đủ câu trả lời của màn hiện tại mới sang màn kế tiếp. Hỏi hết các màn rồi mới ghép, để Unity chỉ bận một đợt.
 
 Nếu môi trường không có hộp lựa chọn, hỏi bằng tin nhắn với đúng ba lựa chọn đó. Nếu có phiên điều phối (ví dụ UI_Skill của unity-ui), xin lượt dùng Unity ở đó trước khi vào Play, biên dịch hoặc sửa prefab; xong thì trả lượt. Báo về phiên đó khi bắt đầu, khi hỏi xong và khi hoàn tất, kể cả khi người dùng chat trực tiếp tại đây.
+
+## Loop và nút nổi bật
+
+Không loop tràn lan. Quét luồng game rồi đánh giá từng màn:
+
+- **Ở lâu:** main, sảnh, HUD, shop, màn chờ, màn kết quả.
+- **Cần gây ấn tượng:** mở game, thắng, nhận thưởng, lên cấp, ưu đãi.
+- **Nút chức năng chính:** Play, Buy, Claim, xem quảng cáo (Ads), tiếp tục, và tính năng đang muốn người chơi thấy.
+
+Chỉ đề xuất loop cho nút hoặc hình ở các chỗ trên, thường 1–2 nút mỗi màn (tối đa 3). Nút phụ, nút đóng, popup mở ngắn: không loop. Nút khoá, hết hàng hoặc không bấm được: tắt loop.
+
+AI tự đề xuất kiểu hợp style, hoặc chọn từ mẫu mặc định:
+
+| Mẫu | Dùng cho |
+|---|---|
+| Nhún scale 1 → 1.05 → 1, nghỉ giữa các nhịp | Play, Claim, nút chính |
+| Lóe sáng quét ngang | Buy, ưu đãi, thẻ nổi bật |
+| Sáng mờ dần (glow/alpha) | Nút Ads, viền đang chọn |
+| Rung icon nhẹ theo nhịp | Quà, rương, icon mời bấm |
+| Trôi nổi lên xuống | Logo, nhân vật, vật phẩm trưng bày |
+| **Chấm notif đỏ** nhún hoặc nhấp nháy | Mục có việc mới. Điều kiện hiện do logic quyết, animation chỉ diễn khi nó đang bật |
+
+Hỏi loop **cùng lượt với show và hide của màn** (Làm như đề xuất / Chỉnh sửa / Không làm), nêu rõ nút nào, mẫu nào, vì sao.
+
+**Chỉ một component dùng chung cho animation nút.**
+
+- Tìm component sẵn có của project trước (component nút nhún, nhấn, pulse) và mở rộng nó. Chưa có thì tạo đúng một component, không tạo class riêng cho từng nút hay từng mẫu.
+- Một field chọn mẫu, thêm vài tham số cần thiết (biên độ, thời lượng, khoảng nghỉ). Nút khác nhau chỉ khác giá trị trong Inspector.
+- Code của màn bật, tắt hoặc đổi mẫu qua vài hàm ngắn (ví dụ `Play`, `Stop`, `SetPreset`). Không chép code tween vào từng màn, không thêm manager, interface hay config cho việc này.
+- Nhấn và loop nằm cùng component: khi đang nhấn thì loop dừng, nhả ra chạy lại, không chồng tween.
+- Dừng và trả baseline khi tắt object; không chạy khi màn bị che hoặc tắt. Chọn unscaled hay scaled theo màn.
+- Không kéo chữ có filter chụp texture vào loop scale nếu phải bật cập nhật theo transform (tốn vẽ lại mỗi frame): nhún phần nền, icon, hoặc cả nút khi chữ không cần cập nhật.
 
 ## Ghép và kiểm tra
 
