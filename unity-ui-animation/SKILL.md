@@ -76,6 +76,8 @@ Hỏi loop **cùng lượt với show và hide của màn** (Làm như đề xu�
 2. **Particle** khi cần hạt bay, lấp lánh, nổ thưởng: dùng UI particle project đã có và prefab FX sẵn có. Giới hạn số hạt và vùng phủ, dừng khi màn ẩn. Project chưa có UI particle thì hỏi trước khi cài.
 3. **Không có sẵn:** đề xuất shader hoặc tween màu, hoặc xin ảnh FX từ người làm. Không tự vẽ ảnh mới khi chưa được đồng ý.
 
+**Hợp mới hỏi, và phải được duyệt trước.** FX hoặc particle chỉ đưa ra khi hợp style và vai trò của màn; không hợp thì bỏ qua, không hỏi cho có. Đã đưa ra thì hỏi thành câu riêng, tách khỏi show, hide, loop: dùng **texture FX** nào, **particle** nào, ở nút hay vùng nào, vì sao, có tốn hiệu năng không. Ba lựa chọn vẫn là Làm như đề xuất / Chỉnh sửa / Không làm. Chưa được duyệt thì không thêm FX, không thêm particle, và tween thường vẫn làm bình thường.
+
 Trong đề xuất, ghi rõ tên file texture hoặc prefab sẽ dùng để người dùng duyệt. Ưu tiên additive hoặc alpha theo shader sẵn có, không tạo material mới cho từng nút.
 
 **Chỉ một component dùng chung cho animation nút.**
