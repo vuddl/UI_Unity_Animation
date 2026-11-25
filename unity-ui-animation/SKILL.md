@@ -32,8 +32,23 @@ Trước khi ghép, nêu theo từng vùng thật của màn: tên cụm, sự k
 - Khi đổi tab, nội dung cũ/mới trượt theo chiều thao tác. Khi đổi lựa chọn, tập trung phản hồi ở ô được chọn và phần chi tiết thay đổi.
 - Dùng nhún, lóe hoặc beam đúng thời điểm chạm nếu hợp game. Loop chỉ thêm khi có chủ đích. Phối hợp nhịp kết với màn kế tiếp để tránh hụt hình.
 
+## Hỏi và chốt từng màn
+
+Khi nhận nhiều màn, bắt đầu sau khi logic của tất cả các màn đã nối xong. Một màn lẻ dùng cùng quy trình với một lượt hỏi.
+
+1. Chụp lại từng màn trong Game View, soạn đề xuất show và hide riêng cho mỗi màn, rồi báo người dùng là bắt đầu phần animation.
+2. Đi lần lượt từng màn: cho xem ảnh chụp và đề xuất ngắn (vùng chuyển động, hướng, thời lượng, điểm nhấn). Hỏi **show** và **hide** tách riêng; mỗi câu có ba lựa chọn:
+   - **Làm như đề xuất**: ghi nhận đề xuất.
+   - **Chỉnh sửa**: đóng hộp hỏi và chờ người dùng mô tả trong khung chat. Nhắc lại ý đã hiểu trong một câu rồi đi tiếp.
+   - **Không làm**: giữ nguyên phần đó.
+3. Có đủ câu trả lời của màn hiện tại mới sang màn kế tiếp. Hỏi hết các màn rồi mới ghép, để Unity chỉ bận một đợt.
+
+Nếu môi trường không có hộp lựa chọn, hỏi bằng tin nhắn với đúng ba lựa chọn đó. Nếu có phiên điều phối (ví dụ UI_Skill của unity-ui), xin lượt dùng Unity ở đó trước khi vào Play, biên dịch hoặc sửa prefab; xong thì trả lượt. Báo về phiên đó khi bắt đầu, khi hỏi xong và khi hoàn tất, kể cả khi người dùng chat trực tiếp tại đây.
+
 ## Ghép và kiểm tra
 
 Tách trình diễn vào component hoặc lớp animation riêng theo kiến trúc hiện có. Logic nghiệp vụ sở hữu dữ liệu, phần thưởng và lựa chọn; tween chỉ đọc giá trị đích và điều khiển hình hiển thị. Dùng sự kiện và điểm hoàn tất show/hide sẵn có. Giữ callback điều hướng đúng một lần, kể cả khi tween bị ngắt. Với UI trong lúc pause, dùng thời gian unscaled.
+
+Filter UI chụp hình chữ vào texture (như UIFX FilterStack) có thể giữ bản chụp lúc scale gần 0 và làm chữ mờ. Khi phóng từ 0, bật cập nhật theo transform của filter đó hoặc bắt đầu từ scale lớn hơn 0; kiểm tra lại chữ sau khi tween kết thúc.
 
 Khôi phục trạng thái hiển thị khi mở lại, dọn tween/loop và tránh lấy transform đang dở làm vị trí gốc. Kiểm tra qua luồng thật: mở, đóng, mở lại, đổi nhanh và đóng giữa chừng. Đối chiếu kết quả gameplay khi hiệu ứng chạy hết và khi bị bỏ qua. Báo rõ phần đã quan sát trong Play Mode và phần mới kiểm tra bằng code.
